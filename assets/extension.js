@@ -106,7 +106,7 @@ class ScWebServers {
     }
 
     setWorld (args) {
-        this.server.send({ type: "world-set", world: args.WORLD })
+        this.server.send(JSON.stringify({ type: "world-set", world: args.WORLD }))
     }
 
     servermetadata () {
