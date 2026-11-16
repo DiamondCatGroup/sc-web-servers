@@ -42,6 +42,11 @@ class ScWebServers {
                     text: "is new messages?"
                 },
                 {
+                    opcode: "readMsg",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "read message"
+                },
+                {
                     opcode: "getWorld",
                     blockType: Scratch.BlockType.COMMAND,
                     text: "get world"
@@ -52,7 +57,7 @@ class ScWebServers {
                     text: "set world [WORLD]",
                     arguments: {
                         WORLD: {
-                            type: Scratch.ArgumentType.ARRAY,
+                            type: Scratch.ArgumentType.STRING,
                             defaultValue: []
                         }
                     }
@@ -74,7 +79,7 @@ class ScWebServers {
     }
 
     onMessage () {
-        this.server.onmessage = function (event) {
+        this.server.onmessage = (event) => {
             this.lastmsg = event.data
             this.newMsgs = true
         }
@@ -101,7 +106,7 @@ class ScWebServers {
     }
 
     setWorld (args) {
-        this.server.send(JSON.stringify({ type: "world-set", world: args.WORLD }))
+        this.server.send({ type: "world-set", world: args.WORLD })
     }
 
     servermetadata () {
