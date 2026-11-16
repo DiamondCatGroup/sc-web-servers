@@ -17,15 +17,15 @@ app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
         console.log(msg)
         try {
-        if (msg === "ping") {
-            ws.send("pong")
-        } else if (JSON.parse(msg).type === "world-get") {
-            ws.send(JSON.stringify(req.world))
-        } else if (JSON.parse(msg).type === "world-set") {
-            req.world = JSON.parse(msg).world
-        } else if (JSON.parse(msg).type === "metadata-get") {
-            ws.send(JSON.stringify(req.metadataSRV))
-        }
+            if (msg === "ping") {
+                ws.send("pong")
+            } else if (JSON.parse(msg).type === "world-get") {
+                ws.send(JSON.stringify(req.world))
+            } else if (JSON.parse(msg).type === "world-set") {
+                req.world = JSON.parse(msg).world
+            } else if (JSON.parse(msg).type === "metadata-get") {
+                ws.send(JSON.stringify(req.metadataSRV))
+            }
         } catch (e) {
             console.error(`Error: ${e.message}`)
             ws.send(`Error: ${e.message}`)
