@@ -6,7 +6,8 @@ app.use(function (req, res, next) {
     req.metadataSRV = {
         userLimit: 20,
         description: "SC Web Server",
-        forVersion: "1.5"
+        serverVersion: "1.0",
+        currentUsers: 0
     }
     return next()
 })
@@ -18,11 +19,11 @@ app.ws('/', function(ws, req) {
             ws.send("pong")
         } else if (typeof msg === "object" && !Array.isArray(msg)) {
             if (msg.type === "world-get") {
-                ws.send(req.world)
+                ws.send(JSON.stringify(req.world))
             } else if (msg.type === "world-set") {
                 req.world = msg.world
             } else if (msg.type === "metadata-get") {
-                ws.send(req.metadataSRV)
+                ws.send(JSON.stringify(req.metadataSRV))
             }
         }
     })

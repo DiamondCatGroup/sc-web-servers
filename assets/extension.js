@@ -22,6 +22,11 @@ class ScWebServers {
                     }
                 },
                 {
+                    opcode: "onMessage",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "set callback for get messages from server",
+                },
+                {
                     opcode: "ping",
                     blockType: Scratch.BlockType.COMMAND,
                     text: "ping"
@@ -66,6 +71,9 @@ class ScWebServers {
             args.URL,
             "protocolOne",
         )
+    }
+
+    onMessage () {
         this.server.onmessage = function (event) {
             this.lastmsg = event.data
             this.newMsgs = true

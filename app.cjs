@@ -6,7 +6,13 @@ var cors = require('cors')
 app.use(
 	express.json({ limit: "5mb" }),
 	cors({
-		origin: ["https://dashblocks.org", "https://www.dashblocks.org", "https://gh.dashblocks.org", "https://neo-mod.github.io"]
+		origin: [
+			"https://dashblocks.org",
+			"https://www.dashblocks.org",
+			"https://gh.dashblocks.org",
+			"https://neo-mod.github.io",
+			"https://diamondcatgroup.github.io"
+		]
 	})
 )
 
