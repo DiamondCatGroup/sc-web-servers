@@ -17,14 +17,12 @@ app.ws('/', function(ws, req) {
         console.log(msg)
         if (msg === "ping") {
             ws.send("pong")
-        } else if (typeof msg === "object" && !Array.isArray(msg)) {
-            if (msg.type === "world-get") {
-                ws.send(JSON.stringify(req.world))
-            } else if (msg.type === "world-set") {
-                req.world = msg.world
-            } else if (msg.type === "metadata-get") {
-                ws.send(JSON.stringify(req.metadataSRV))
-            }
+        } else if (msg.type === "world-get") {
+            ws.send(JSON.stringify(req.world))
+        } else if (msg.type === "world-set") {
+            req.world = msg.world
+        } else if (msg.type === "metadata-get") {
+            ws.send(JSON.stringify(req.metadataSRV))
         }
     })
     console.log('socket', req.world)
