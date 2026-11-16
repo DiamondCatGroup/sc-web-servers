@@ -7,7 +7,8 @@ app.use(function (req, res, next) {
         userLimit: 20,
         description: "SC Web Server",
         serverVersion: "1.0",
-        currentUsers: 0
+        currentUsers: 0,
+        admins: []
     }
     return next()
 })
