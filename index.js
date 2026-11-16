@@ -16,6 +16,7 @@ app.use(function (req, res, next) {
 app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
         console.log(msg)
+        try {
         if (msg === "ping") {
             ws.send("pong")
         } else if (JSON.parse(msg).type === "world-get") {
@@ -24,6 +25,10 @@ app.ws('/', function(ws, req) {
             req.world = JSON.parse(msg).world
         } else if (JSON.parse(msg).type === "metadata-get") {
             ws.send(JSON.stringify(req.metadataSRV))
+        }
+        } catch (e) {
+            console.error(`Error: ${e.message}`)
+            ws.send(`Error: ${e.message}`)
         }
     })
     console.log('socket', req.world)
