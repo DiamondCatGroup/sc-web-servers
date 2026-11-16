@@ -51,6 +51,11 @@ class ScWebServers {
                             defaultValue: []
                         }
                     }
+                },
+                {
+                    opcode: "servermetadata",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "get server metadata"
                 }
             ]
         };
@@ -89,6 +94,10 @@ class ScWebServers {
 
     setWorld (args) {
         this.server.send(JSON.stringify({ type: "world-set", world: args.WORLD }))
+    }
+
+    servermetadata () {
+        this.server.send(JSON.stringify({ type: "metadata-get" }))
     }
 }
 

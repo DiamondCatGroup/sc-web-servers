@@ -3,6 +3,11 @@ import { app } from "./app.cjs";
 app.use(function (req, res, next) {
     console.log('middleware')
     req.world = []
+    req.metadataSRV = {
+        userLimit: 20,
+        description: "SC Web Server",
+        forVersion: "1.5"
+    }
     return next()
 })
 
@@ -13,9 +18,11 @@ app.ws('/', function(ws, req) {
             ws.send("pong")
         } else if (typeof msg === "object" && !Array.isArray(msg)) {
             if (msg.type === "world-get") {
-                return req.world
+                ws.send(req.world)
             } else if (msg.type === "world-set") {
                 req.world = msg.world
+            } else if (msg.type === "metadata-get") {
+                ws.send(req.metadataSRV)
             }
         }
     })
