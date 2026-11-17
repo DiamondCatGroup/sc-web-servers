@@ -29,7 +29,7 @@ class ScWebServers {
                 {
                     opcode: "ping",
                     blockType: Scratch.BlockType.COMMAND,
-                    text: "ping"
+                    text: "server ping"
                 },
                 {
                     opcode: "latestMessage",
@@ -39,7 +39,7 @@ class ScWebServers {
                 {
                     opcode: "isNewMessages",
                     blockType: Scratch.BlockType.BOOLEAN,
-                    text: "is new messages?"
+                    text: "new messages received?"
                 },
                 {
                     opcode: "readMsg",
