@@ -3,6 +3,7 @@ import { app } from "./app.cjs";
 app.use(function (req, res, next) {
     console.log('middleware')
     req.world = []
+    req.inventory = {}
     req.metadataSRV = {
         userLimit: 20,
         description: "SC Web Server",
@@ -10,7 +11,6 @@ app.use(function (req, res, next) {
         currentUsers: 0,
         admins: [],
         banned: [],
-        inventory: {}
     }
     return next()
 })
