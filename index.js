@@ -8,7 +8,9 @@ app.use(function (req, res, next) {
         description: "SC Web Server",
         serverVersion: "1.0",
         currentUsers: 0,
-        admins: []
+        admins: [],
+        banned: [],
+        inventory: {}
     }
     return next()
 })
