@@ -9,7 +9,7 @@ class ScWebServers {
         return {
             id: 'scwebserver',
             name: 'SC Web Server Api [1.1]',
-            color: '#7b4700'
+            color: '#7b4700',
             blocks: [
                 {
                     opcode: "_connect",
