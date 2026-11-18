@@ -174,6 +174,7 @@ class ScWebServers {
         switch (args.ACTION) {
             case "add":
                 this.server.send(JSON.stringify({ type: "admin-add", user: args.ADMIN }))
+                break
             case "delete":
                 this.server.send(JSON.stringify({ type: "admin-delete", user: args.ADMIN }))
         }
@@ -187,6 +188,7 @@ class ScWebServers {
         switch (args.ACTION) {
             case "ban":
                 this.server.send(JSON.stringify({ type: "user-ban", user: args.USER }))
+                break
             case "unban":
                 this.server.send(JSON.stringify({ type: "user-unban", user: args.USER }))
         }
