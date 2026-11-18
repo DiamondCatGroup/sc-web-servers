@@ -20,6 +20,7 @@ app.use(function (req, res, next) {
     req.pos = {}
     req.metadataSRV = {
         userLimit: 20,
+        title: "SosirsCraft server",
         description: "SC Web Server",
         serverVersion: "1.0",
         currentUsers: 0,
