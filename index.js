@@ -10,6 +10,7 @@ const htmlDef = {
             <h1>SosirsCraft Server</h1>
             <p>Useful links:</p>
             <ul>
+            <li><a href="https://github.com/DiamondCatGroup/sc-web-servers/">Source code</a></li>
             <li><a href="https://github.com/DiamondCatGroup/sc-web-servers/blob/main/README.md">Documentation</a></li>
             <li><a href="https://github.com/DiamondCatGroup/sc-web-servers/issues">Bugs</a></li>
             <li><a href="/console/">Console</a></li>
