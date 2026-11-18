@@ -51,7 +51,7 @@ const htmlDef = {
                 document.getElementById("consoleSend").onclick = async () => {
                     const ui = document.getElementById("consoleUI")
                     const input = document.getElementById("consoleInput")
-                    ui.innerHTML += \`<span class="blue">${process.cwd().replaceAll("\\", "/")}</span><span class="green">$</span><span class="text">$\{input.value\}</span><br>\`
+                    ui.innerHTML += \`<span class="blue">${process.cwd().replaceAll("\\", "/")}</span><span class="green">$</span> <span class="text">$\{input.value\}</span><br>\`
                     try {
                         const fet = await fetch("/console/", {
                             method: "POST",
@@ -63,16 +63,16 @@ const htmlDef = {
                         const req = await fet.json()
                         switch (req.type) {
                             case "error":
-                                ui.innerHTML += \`<span class="error">$\{req.text\}</span>\`
+                                ui.innerHTML += \`<span class="error">$\{req.text\}</span><br>\`
                                 break
                             case "warn":
-                                ui.innerHTML += \`<span class="warn">$\{req.text\}</span>\`
+                                ui.innerHTML += \`<span class="warn">$\{req.text\}</span><br>\`
                                 break
                             case "alert":
                                 alert(req.text)
                                 break
                             default:
-                                ui.innerHTML += \`<span class="text">$\{req.text\}</span>\`
+                                ui.innerHTML += \`<span class="text">$\{req.text\}</span><br>\`
                         }
                     } catch (error) {
                         ui.innerHTML += \`<span class="error">Error: $\{error.message\}</span>\`
