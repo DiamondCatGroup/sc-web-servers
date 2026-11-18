@@ -46,7 +46,7 @@ const htmlDef = {
         <body>
             <h1>SosirsCraft Server Console</h1>
             <div id="consoleUI" style="background-color:black"></div>
-            <p style="background-color:black"><span class="blue">${process.cwd()}</span><span class="green">$</span><input id="consoleInput"><div id="consoleSend" class="text">Send</div></p>
+            <p style="background-color:black"><span class="blue">${process.cwd()}</span><span class="green">$</span><input id="consoleInput"><span id="consoleSend" class="text">Send</span></p>
             <script>
                 document.getElementById("consoleSend").onclick = async () => {
                     const ui = document.getElementById("consoleUI")
