@@ -67,8 +67,64 @@ class ScWebServers {
                     opcode: "servermetadata",
                     blockType: Scratch.BlockType.COMMAND,
                     text: "get server metadata"
+                },
+                {
+                    opcode: "adminAct",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "admin [ADMIN] [ACTION]",
+                    arguments: {
+                        ADMIN: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: "User123"
+                        },
+                        ACTION: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: "ADMIN_ADD_DEL"
+                        }
+                    }
+                },
+                {
+                    opcode: "disconnect",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "disconnect"
+                },
+                {
+                    opcode: "userAct",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "user [USER] [ACTION]",
+                    arguments: {
+                        USER: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: "User123"
+                        },
+                        ACTION: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: "USER_BAN_UNBAN"
+                        }
+                    }
+                },
+                {
+                    opcode: "getInfoOfServer",
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: "info of server [URL]",
+                    arguments: {
+                        URL: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: "ws://localhost:3000/"
+                        }
+                    }
                 }
-            ]
+            ],
+            menus: {
+                ADMIN_ADD_DEL: {
+                    acceptReporters: true,
+                    items: ['add', 'delete']
+                },
+                USER_BAN_UNBAN: {
+                    acceptReporters: true,
+                    items: ['ban', 'unban']
+                }
+            }
         };
     }
 
@@ -113,6 +169,30 @@ class ScWebServers {
     servermetadata () {
         this.server.send(JSON.stringify({ type: "metadata-get" }))
     }
+
+    adminAct (args) {
+        switch (args.ACTION) {
+            case "add":
+                this.server.send(JSON.stringify({ type: "admin-add", user: args.ADMIN }))
+            case "delete":
+                this.server.send(JSON.stringify({ type: "admin-delete", user: args.ADMIN }))
+        }
+    }
+    
+    disconnect () {
+        this.server.close()
+    }
+
+    userAct (args) {
+        switch (args.ACTION) {
+            case "ban":
+                this.server.send(JSON.stringify({ type: "user-ban", user: args.USER }))
+            case "unban":
+                this.server.send(JSON.stringify({ type: "user-unban", user: args.USER }))
+        }
+    }
+
+    getInfoOfServer () {}
 }
 
 Scratch.extensions.register(new ScWebServers())
