@@ -4,12 +4,13 @@ app.use(function (req, res, next) {
     console.log('middleware')
     req.world = []
     req.inventory = {}
+    req.pos={}
     req.metadataSRV = {
         userLimit: 20,
         description: "SC Web Server",
         serverVersion: "1.0",
         currentUsers: 0,
-        admins: [],
+        admins: ["admin"],
         banned: []
     }
     return next()
