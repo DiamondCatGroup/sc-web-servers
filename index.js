@@ -115,8 +115,11 @@ app.get('/console/', (req, res) => {
 app.post('/console/', (req, res) => {
     const cmd = req.body.command
     if (!cmd) { return res.status(400).json({ type: "error", text: "bad request" }) }
-    if (cmd === "help") {
-        return res.status(200).json({ type: "log", text: "SC Web Server Console<br>Всё" })
+    if (command === "help") {
+        return res.status(200).json({ type: "log", text: "SC Web Server Console<br>server.metadata - get metadata" })
+    }
+    if (command === "server.metadata") {
+        return res.status(200).json({ type: "log", text: JSON.stringify(info.metadataSRV) })
     }
 })
 
