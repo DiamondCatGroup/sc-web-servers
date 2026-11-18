@@ -68,6 +68,12 @@ const htmlDef = {
                             case "warn":
                                 ui.innerHTML += \`<span class="warn">$\{req.text\}</span><br>\`
                                 break
+                            case "blueText":
+                                ui.innerHTML += \`<span class="blue">$\{req.text\}</span><br>\`
+                                break
+                            case "success":
+                                ui.innerHTML += \`<span class="green">$\{req.text\}</span><br>\`
+                                break
                             case "alert":
                                 alert(req.text)
                                 break
