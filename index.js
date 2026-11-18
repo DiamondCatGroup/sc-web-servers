@@ -7,6 +7,16 @@ const htmlDef = {
             <title>SosirsCraft Server</title>
         </head>
         <body>
+            <h1>SosirsCraft Server</h1>
+        </body>
+    </html>
+    `,
+    "/console/": `
+    <html>
+        <head>
+            <title>SosirsCraft Server</title>
+        </head>
+        <body>
             <h1>SosirsCraft Server Console</h1>
         </body>
     </html>
@@ -32,6 +42,14 @@ app.use(function (req, res, next) {
 
 app.get('/', (req, res) => {
     return res.status(200).send(htmlDef["/"])
+})
+
+app.get('/console/', (req, res) => {
+    return res.status(200).send(htmlDef["/console/"])
+})
+
+app.post('/console/', (req, res) => {
+    return res.status(200).send(htmlDef["/console/"])
 })
 
 app.ws('/ws', function(ws, req) {
