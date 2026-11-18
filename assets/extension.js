@@ -18,7 +18,7 @@ class ScWebServers {
                     arguments: {
                         URL: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: "ws://localhost:3000/"
+                            defaultValue: "ws://localhost:3000/ws"
                         }
                     }
                 },
@@ -110,7 +110,7 @@ class ScWebServers {
                     arguments: {
                         URL: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: "ws://localhost:3000/"
+                            defaultValue: "ws://localhost:3000/ws"
                         }
                     }
                 }

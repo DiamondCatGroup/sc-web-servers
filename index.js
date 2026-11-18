@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     return res.status(200).send(htmlDef["/"])
 })
 
-app.ws('/', function(ws, req) {
+app.ws('/ws', function(ws, req) {
     ws.on('message', function(msg) {
         console.log(msg)
         try {
