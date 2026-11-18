@@ -12,7 +12,7 @@ const htmlDef = {
             <ul>
             <li><a href="https://github.com/DiamondCatGroup/sc-web-servers/blob/main/README.md">Documentation</a></li>
             <li><a href="https://github.com/DiamondCatGroup/sc-web-servers/issues">Bugs</a></li>
-            <li><a href="console/">Console</a></li>
+            <li><a href="/console/">Console</a></li>
             </ul>
         </body>
     </html>
@@ -21,9 +21,58 @@ const htmlDef = {
     <html>
         <head>
             <title>SosirsCraft Server | Console</title>
+            <style>
+                .text {
+                    color: white
+                }
+
+                .green {
+                    color: green
+                }
+
+                .blue {
+                    color: blue
+                }
+
+                .error {
+                    color: red
+                }
+
+                .warn {
+                    color: orange
+                }
+            </style>
         </head>
         <body>
             <h1>SosirsCraft Server Console</h1>
+            <div id="consoleUI" style="background-color:black"></div>
+            <p style="background-color:black"><span class="blue">${process.pwd()}</span><span class="green">$</span><input id="consoleInput"><div id="consoleSend" class="text">Send</div></p>
+            <script>
+                document.getElementById("consoleSend").onclick = async () => {
+                    const ui = document.getElementById("consoleUI")
+                    const input = document.getElementById("consoleInput")
+                    ui.innerHTML += \`<span class="blue">${process.pwd()}</span><span class="green">$</span>$\{input.value\}\`
+                    try {
+                        const fet = await fetch("/console/", { method: "POST", body: JSON.stringify({ command: input.value }) })
+                        const req = await fet.json()
+                        switch (req.type) {
+                            case "error":
+                                ui.innerHTML += \`<span class="error">$\{req.text\}</span>\`
+                                break
+                            case "warn":
+                                ui.innerHTML += \`<span class="warn">$\{req.text\}</span>\`
+                                break
+                            case "alert":
+                                alert(req.text)
+                                break
+                            default:
+                                ui.innerHTML += \`<span class="text">$\{req.text\}</span>\`
+                        }
+                    } catch (error) {
+                        ui.innerHTML += \`<span class="error">Error: $\{error.message\}</span>\`
+                    }
+                }
+            </script>
         </body>
     </html>
     `
@@ -58,7 +107,11 @@ app.get('/console/', (req, res) => {
 })
 
 app.post('/console/', (req, res) => {
-    return res.status(200).send(htmlDef["/console/"])
+    const { command } = req.body
+    if (!command) { return res.status(400).json({ type: "error", text: "bad request" }) }
+    if (command === "help") {
+        return res.status(200).json({ type: "log", text: "SC Web Server Console<br>Всё" })
+    }
 })
 
 app.ws('/ws', function(ws, req) {
