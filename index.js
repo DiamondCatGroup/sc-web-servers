@@ -4,17 +4,23 @@ const htmlDef = {
     "/": `
     <html>
         <head>
-            <title>SosirsCraft Server</title>
+            <title>SosirsCraft Server | Homepage</title>
         </head>
         <body>
             <h1>SosirsCraft Server</h1>
+            <p>Useful links:</p>
+            <ul>
+            <li><a href="insert link">Documentation</a></li>
+            <li><a href="insert link">Bugs</a></li>
+            <li><a href="console/">Console</a></li>
+            </ul>
         </body>
     </html>
     `,
     "/console/": `
     <html>
         <head>
-            <title>SosirsCraft Server</title>
+            <title>SosirsCraft Server | Console</title>
         </head>
         <body>
             <h1>SosirsCraft Server Console</h1>
