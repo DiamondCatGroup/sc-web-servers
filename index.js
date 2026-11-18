@@ -46,12 +46,12 @@ const htmlDef = {
         <body>
             <h1>SosirsCraft Server Console</h1>
             <div id="consoleUI" style="background-color:black"></div>
-            <p style="background-color:black"><span class="blue">${process.pwd()}</span><span class="green">$</span><input id="consoleInput"><div id="consoleSend" class="text">Send</div></p>
+            <p style="background-color:black"><span class="blue">${process.cwd()}</span><span class="green">$</span><input id="consoleInput"><div id="consoleSend" class="text">Send</div></p>
             <script>
                 document.getElementById("consoleSend").onclick = async () => {
                     const ui = document.getElementById("consoleUI")
                     const input = document.getElementById("consoleInput")
-                    ui.innerHTML += \`<span class="blue">${process.pwd()}</span><span class="green">$</span>$\{input.value\}\`
+                    ui.innerHTML += \`<span class="blue">${process.cwd()}</span><span class="green">$</span>$\{input.value\}\`
                     try {
                         const fet = await fetch("/console/", { method: "POST", body: JSON.stringify({ command: input.value }) })
                         const req = await fet.json()
