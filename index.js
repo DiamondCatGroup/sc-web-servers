@@ -23,12 +23,11 @@ const htmlDef = {
     `
 }
 
-app.use(function (req, res, next) {
-    console.log('middleware')
-    req.world = []
-    req.inventory = {}
-    req.pos = {}
-    req.metadataSRV = {
+let info = {
+    world: [],
+    inventory: {},
+    pos: {},
+    metadataSRV: {
         userLimit: 20,
         title: "SosirsCraft server",
         description: "SC Web Server",
@@ -37,6 +36,10 @@ app.use(function (req, res, next) {
         admins: ["admin"],
         banned: []
     }
+}
+
+app.use(function (req, res, next) {
+    console.log('middleware')
     return next()
 })
 
@@ -59,22 +62,22 @@ app.ws('/ws', function(ws, req) {
             if (msg === "ping") {
                 ws.send("pong")
             } else if (JSON.parse(msg).type === "world-get") {
-                ws.send(JSON.stringify(req.world))
+                ws.send(JSON.stringify(info.world))
             } else if (JSON.parse(msg).type === "world-set") {
-                req.world = JSON.parse(msg).world
+                info.world = JSON.parse(msg).world
             } else if (JSON.parse(msg).type === "metadata-get") {
-                ws.send(JSON.stringify(req.metadataSRV))
+                ws.send(JSON.stringify(info.metadataSRV))
             } else if (JSON.parse(msg).type === "admin-add") {
-                if (!req.metadata.admins.includes(JSON.parse(msg).user)) req.metadataSRV.admins.push(JSON.parse(msg).user)
+                if (!info.metadataSRV.admins.includes(JSON.parse(msg).user)) info.metadataSRV.admins.push(JSON.parse(msg).user)
                 else throw new Error("User is already an admin")
             } else if (JSON.parse(msg).type === "admin-delete") {
-                if (req.metadata.admins.includes(JSON.parse(msg).user)) req.metadataSRV.admins.splice(req.metadataSRV.admins.indexOf(JSON.parse(msg).user), 1)
+                if (info.metadataSRV.admins.includes(JSON.parse(msg).user)) info.metadataSRV.admins.splice(info.metadataSRV.admins.indexOf(JSON.parse(msg).user), 1)
                 else throw new Error("User is not an admin")
             } else if (JSON.parse(msg).type === "user-ban") {
-                if (!req.metadata.banned.includes(JSON.parse(msg).user)) req.metadataSRV.banned.push(JSON.parse(msg).user)
+                if (!info.metadataSRV.banned.includes(JSON.parse(msg).user)) info.metadataSRV.banned.push(JSON.parse(msg).user)
                 else throw new Error("User is banned")
             } else if (JSON.parse(msg).type === "user-unban") {
-                if (req.metadata.banned.includes(JSON.parse(msg).user)) req.metadataSRV.banned.splice(req.metadataSRV.banned.indexOf(JSON.parse(msg).user), 1)
+                if (info.metadataSRV.banned.includes(JSON.parse(msg).user)) info.metadataSRV.banned.splice(info.metadataSRV.banned.indexOf(JSON.parse(msg).user), 1)
                 else throw new Error("User is not banned")
             }
         } catch (e) {
