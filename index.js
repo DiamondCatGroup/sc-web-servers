@@ -48,16 +48,16 @@ app.ws('/', function(ws, req) {
                 ws.send(JSON.stringify(req.metadataSRV))
             } else if (JSON.parse(msg).type === "admin-add") {
                 if (!req.metadata.admins.includes(JSON.parse(msg).user)) req.metadataSRV.admins.push(JSON.parse(msg).user)
-                else throw new Error("User is admin")
+                else throw new Error("User is already an admin")
             } else if (JSON.parse(msg).type === "admin-delete") {
                 if (req.metadata.admins.includes(JSON.parse(msg).user)) req.metadataSRV.admins.splice(req.metadataSRV.admins.indexOf(JSON.parse(msg).user), 1)
-                else throw new Error("User is not a admin")
+                else throw new Error("User is not an admin")
             } else if (JSON.parse(msg).type === "user-ban") {
                 if (!req.metadata.banned.includes(JSON.parse(msg).user)) req.metadataSRV.banned.push(JSON.parse(msg).user)
                 else throw new Error("User is banned")
             } else if (JSON.parse(msg).type === "user-unban") {
                 if (req.metadata.banned.includes(JSON.parse(msg).user)) req.metadataSRV.banned.splice(req.metadataSRV.banned.indexOf(JSON.parse(msg).user), 1)
-                else throw new Error("User is not a banned")
+                else throw new Error("User is not banned")
             }
         } catch (e) {
             console.error(`Error: ${e.message}`)
