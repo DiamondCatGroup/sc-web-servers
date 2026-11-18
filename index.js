@@ -1,10 +1,23 @@
 import { app } from "./app.cjs";
 
+const htmlDef = {
+    "/": `
+    <html>
+        <head>
+            <title>SosirsCraft Server</title>
+        </head>
+        <body>
+            <h1>SosirsCraft Server Console</h1>
+        </body>
+    </html>
+    `
+}
+
 app.use(function (req, res, next) {
     console.log('middleware')
     req.world = []
     req.inventory = {}
-    req.pos={}
+    req.pos = {}
     req.metadataSRV = {
         userLimit: 20,
         description: "SC Web Server",
@@ -14,6 +27,10 @@ app.use(function (req, res, next) {
         banned: []
     }
     return next()
+})
+
+app.get('/', (req, res) => {
+    return res.status(200).send(htmlDef["/"])
 })
 
 app.ws('/', function(ws, req) {
