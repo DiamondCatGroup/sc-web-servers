@@ -46,14 +46,20 @@ const htmlDef = {
         <body>
             <h1>SosirsCraft Server Console</h1>
             <div id="consoleUI" style="background-color:black"></div>
-            <p style="background-color:black"><span class="blue">${process.cwd()}</span><span class="green">$</span><input id="consoleInput"><span id="consoleSend" class="text">Send</span></p>
+            <p style="background-color:black"><span class="blue">${process.cwd().replaceAll("\\", "/")}</span><span class="green">$</span><input id="consoleInput"><span id="consoleSend" class="text">Send</span></p>
             <script>
                 document.getElementById("consoleSend").onclick = async () => {
                     const ui = document.getElementById("consoleUI")
                     const input = document.getElementById("consoleInput")
-                    ui.innerHTML += \`<span class="blue">${process.cwd()}</span><span class="green">$</span>$\{input.value\}\`
+                    ui.innerHTML += \`<span class="blue">${process.cwd().replaceAll("\\", "/")}</span><span class="green">$</span><span class="text">$\{input.value\}</span><br>\`
                     try {
-                        const fet = await fetch("/console/", { method: "POST", body: JSON.stringify({ command: input.value }) })
+                        const fet = await fetch("/console/", {
+                            method: "POST",
+                            body: JSON.stringify({ command: input.value }),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
                         const req = await fet.json()
                         switch (req.type) {
                             case "error":
@@ -107,9 +113,9 @@ app.get('/console/', (req, res) => {
 })
 
 app.post('/console/', (req, res) => {
-    const { command } = req.body
-    if (!command) { return res.status(400).json({ type: "error", text: "bad request" }) }
-    if (command === "help") {
+    const cmd = req.body.command
+    if (!cmd) { return res.status(400).json({ type: "error", text: "bad request" }) }
+    if (cmd === "help") {
         return res.status(200).json({ type: "log", text: "SC Web Server Console<br>Всё" })
     }
 })
