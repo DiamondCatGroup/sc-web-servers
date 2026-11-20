@@ -1,5 +1,8 @@
 import { app } from "./app.cjs";
 import defaultWorld from "./multiplayer_default_world.json" with { type: "json" } 
+import conf from "./config.json" with { type: "json" } 
+
+const { env } = conf
 
 const htmlDef = {
     "/": `
@@ -164,4 +167,4 @@ app.ws('/ws', function(ws, req) {
     console.log('socket', req.world)
 })
 
-app.listen(3000);
+app.listen(env.PORT);

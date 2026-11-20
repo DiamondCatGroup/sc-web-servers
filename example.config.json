@@ -1,0 +1,6 @@
+{
+    "serverPass": "",
+    "env": {
+        "PORT": 3000
+    }
+}
