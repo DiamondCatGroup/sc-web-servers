@@ -1,3 +1,4 @@
 - title, description, max users in index.js
 - loca.lt subdomain in package.json
 - Pages content in index.js
+- default world in defaultworld.json
